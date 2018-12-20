@@ -19,7 +19,6 @@ We want to implement an address picker that allows him/her to narrow down the se
 - What are some ways to increase the performance of this form?
 - How many roundtrips to the server does it take to fill the 4 fields? What would happen if the user is on a 3G connection?
 - Is there a way to reduce the wait time on the frontend once a user has selected the previous field (i.e. Province)?
-- Is there a way
 - Super bonus point: is there a way you can intelligently guess a users' location, to prefetch fields? (hint: you can assume the user is on a mobile phone that has mobile chrome)
 
 ## Resources
