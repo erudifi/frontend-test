@@ -14,6 +14,12 @@ In Indonesia, there are many subdistricts (a flat 12.5mb file). With many of our
 
 We want to implement an address picker that allows him/her to narrow down the selection through province, city, districts, and subdistricts (see gif above).
 
+## Deliverable
+
+Fork this repo and implement the province/address picker, with special attention to comments and clean code.
+
+Once you have implemented it, you should deploy the **built** app to Github pages. You can read [this article](https://itnext.io/so-you-want-to-host-your-single-age-react-app-on-github-pages-a826ab01e48) for guidance.
+
 ## Some guiding questions
 
 - What are some ways to increase the performance of this form?
@@ -22,6 +28,10 @@ We want to implement an address picker that allows him/her to narrow down the se
 - Super bonus point: is there a way you can intelligently guess a users' location, to prefetch fields? (hint: you can assume the user is on a mobile phone that has mobile chrome)
 
 ## Resources
+
+### Libraries
+
+Feel free to use Bootstrap, Antd or any other component libraries. We are not looking for HTML/CSS skill, but your ability to work with APIs and React performance.
 
 ### APIs:
 
