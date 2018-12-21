@@ -4,7 +4,7 @@ import FormPage from './FormPage';
 
 const App = () => (
 	<Router>
-		<Route exact path="/" component={FormPage} />
+		<Route path="/" component={FormPage} />
 	</Router>
 );
 
