@@ -24,7 +24,7 @@
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer",
     "predeploy": "yarn build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -b master -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
