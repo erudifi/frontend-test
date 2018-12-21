@@ -17,6 +17,14 @@ const CustomSelect = ({ label, value, options, handleChange, isLoading, isDisabl
 	);
 };
 
+CustomSelect.defaultProps = {
+	label: 'forms',
+	value: { label: '', value: 0 },
+	options: [{ label: '', value: 0 }],
+	isLoading: true,
+	isDisabled: true
+};
+
 CustomSelect.propTypes = {
 	label: PropTypes.string.isRequired,
 	value: PropTypes.shape({
@@ -34,4 +42,5 @@ CustomSelect.propTypes = {
 	isLoading: PropTypes.bool,
 };
 
+//Use React.memo to ensure no rerenders unless a prop has changed
 export default React.memo(CustomSelect);
