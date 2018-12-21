@@ -84,24 +84,28 @@ class App extends Component {
         <Select
           options={province}
           onChange={(selected)=> this.setState({selectedProvince: selected.value })}
+          isLoading={province.length === 0}
         />
         <h3>Cities</h3>
        <Select
          isDisabled={selectedProvince === 0}
          options={cities}
          onChange={(selected)=> this.setState({selectedCity: selected.value })}
+         isLoading={cities.length === 0}
        />
         <h3>Districts</h3>
         <Select
           isDisabled={selectedCity === 0}
           options={districts}
           onChange={(selected)=> this.setState({selectedDistrict: selected.value })}
+          isLoading={districts.length === 0}
         />
         <h3>SubDistricts</h3>
         <Select
           isDisabled={selectedDistrict === 0}
           options={subdistricts}
           onChange={(selected)=> this.setState({selectedSubdistric: selected.value })}
+          isLoading={subdistricts.length === 0}
         />
       </div>
     );
