@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Select from 'react-select'
-import '../css/App.css';
 import locationService from '../services/locationService';
 
 class App extends Component {
@@ -19,55 +18,68 @@ class App extends Component {
   };
 
 	async componentDidMount() {
-   const province =  await locationService.getProvince().then(data =>
-     data.data.provinces.map(province => ({
-       label: province.name,
-       value: province.id
-     }))
-   );
+   const province = await this.getProvince();
    this.setState({ province });
 	}
 
 	async componentDidUpdate(prevProps, prevState) {
     if(prevState.selectedProvince !== this.state.selectedProvince){
-      console.log('this.state.selectedProvince: ', this.state.selectedProvince);
-	    const cities =  await locationService.getCities(this.state.selectedProvince).then(data =>
-		    data.data.cities.map(city => ({
-			    label: city.name,
-			    value: city.id
-		    }))
-	    );
+	    const cities =  await this.getCities();
 	    this.setState({ cities });
     }
 
 		if(prevState.selectedCity !== this.state.selectedCity){
-			console.log('this.state.selectedCity: ', this.state.selectedCity);
-			const districts =  await locationService.getDistricts(this.state.selectedCity).then(data =>
-				data.data.districts.map(district => ({
-					label: district.name,
-					value: district.id
-				}))
-			);
+			const districts =  await  this.getDistricts();
 			this.setState({ districts });
 		}
 
 		if(prevState.selectedDistrict !== this.state.selectedDistrict){
-			console.log('this.state.selectedDistrict: ', this.state.selectedDistrict);
-			const subdistricts =  await locationService.getSubDistricts(this.state.selectedDistrict).then(data =>
-				data.data.subdistricts.map(subdistrict => ({
-					label: subdistrict.name,
-					value: subdistrict.id
-				}))
-			);
+			const subdistricts =  await this.getSubDistricts();
 			this.setState({ subdistricts });
 		}
 	}
+
+	getProvince = () => {
+		return locationService.getProvince().then(data =>
+			data.data.provinces.map(province => ({
+				label: province.name,
+				value: province.id
+			}))
+		);
+  };
+
+	getCities = () => {
+	  return locationService.getCities(this.state.selectedProvince).then(data =>
+		  data.data.cities.map(city => ({
+			  label: city.name,
+			  value: city.id
+		  }))
+	  );
+  };
+
+	getDistricts = () => {
+		return locationService.getDistricts(this.state.selectedCity).then(data =>
+			data.data.districts.map(district => ({
+				label: district.name,
+				value: district.id
+			}))
+		);
+  };
+
+	getSubDistricts = () => {
+	  return locationService.getSubDistricts(this.state.selectedDistrict).then(data =>
+		  data.data.subdistricts.map(subdistrict => ({
+			  label: subdistrict.name,
+			  value: subdistrict.id
+		  }))
+	  );
+  };
 
 
 	render() {
 	  const { province, cities, districts, subdistricts, selectedProvince, selectedCity, selectedDistrict } = this.state;
     return (
-      <div className="App">
+      <div>
         <h3>Province</h3>
         <Select
           options={province}
