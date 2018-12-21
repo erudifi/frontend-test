@@ -10,6 +10,7 @@
     "react-select": "^2.1.2"
   },
   "devDependencies": {
+    "prop-types": "^15.6.2",
     "source-map-explorer": "^1.6.0"
   },
   "scripts": {
