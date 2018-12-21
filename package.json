@@ -2,7 +2,7 @@
   "name": "dana-cita-front-end-test",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://nold2.github.io/dana-cita-front-end-test",
+  "homepage": "http://nold2.github.io/frontend-test",
   "dependencies": {
     "axios": "^0.18.0",
     "gh-pages": "^2.0.1",
