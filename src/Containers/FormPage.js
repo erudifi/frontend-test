@@ -3,7 +3,7 @@ import locationService from '../services/locationService';
 //Lazy load CustomSelect components https://reactjs.org/blog/2018/10/23/react-v-16-6.html
 const CustomSelect = lazy(() => import('../Components/CustomSelect') );
 
-class App extends Component {
+class FormPage extends Component {
 	state ={
 		provinces: [],
 		selectedProvince: { label: '', value: 0 },
@@ -149,4 +149,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default FormPage;
