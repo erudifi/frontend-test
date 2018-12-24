@@ -8,15 +8,7 @@ export default {
 	getSubDistricts
 }
 
-function getLocation() {
-	const sucess = position => {
-		return console.log(position)
-	};
-
-	const fail = error => {
-		return console.error(error)
-	};
-
+function getLocation(sucess, fail) {
 	window.navigator.geolocation.getCurrentPosition(sucess, fail)
 }
 
