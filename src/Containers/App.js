@@ -1,11 +1,13 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import FormPage from './FormPage';
+import HomePage from './HomePage';
 
 const App = () => (
-	<Router>
-		<Route path="/" component={FormPage} />
-	</Router>
+	<Switch>
+		<Route  path="/" component={FormPage} exact />
+		<Route path="/home" component={HomePage} exact />
+	</Switch>
 );
 
 export default App;
