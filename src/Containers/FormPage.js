@@ -19,7 +19,6 @@ class FormPage extends Component {
 	};
 
 	async componentDidMount() {
-		console.log(await locationService.getLocation());
 		//Get the province and set it to state
 		const provinces = await this.getProvinces();
 		this.setState({ provinces });
@@ -111,7 +110,6 @@ class FormPage extends Component {
 		} = this.state;
 		return (
 			<div>
-				Hello world!
 				<Suspense fallback={<div>Loading...</div>}>
 					<CustomSelect
 						label={"Province"}
