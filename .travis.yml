@@ -12,7 +12,7 @@ script:
 deploy:
   provider: pages
   skip-cleanup: true
-  github-token: process.env.REACT_APP_GITHUB_API
+  github-token: $githubToken
   keep-history: true
   local_dir: build
   on:
