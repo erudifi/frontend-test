@@ -1,15 +1,20 @@
 import axios from 'axios';
 
 export default {
-	getLocation,
+	getGeolocation,
+	getReverseGeocoding,
 	getProvince,
 	getCities,
 	getDistricts,
 	getSubDistricts
 }
 
-function getLocation(sucess, fail) {
+function getGeolocation(sucess, fail) {
 	window.navigator.geolocation.getCurrentPosition(sucess, fail)
+}
+
+function getReverseGeocoding(lat, lng) {
+	return axios.get(`https://us1.locationiq.com/v1/reverse.php?key=${process.env.REACT_APP_LOCATION_API}&lat=${lat}&lon=${lng}&format=json`)
 }
 
 function getProvince() {
