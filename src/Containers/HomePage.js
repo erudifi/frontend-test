@@ -3,13 +3,21 @@ import locationService from '../services/locationService';
 
 class HomePage extends Component {
 	state = {
-		position: null,
+		position: {},
 		error: '',
 	};
 
 	async componentDidMount() {
-		await locationService.getLocation(this.getLocationSuccess, this.getLocationFail);
+		await locationService.getGeolocation(this.getLocationSuccess, this.getLocationFail);
 	}
+
+	async componentDidUpdate(prevProps, prevState) {
+		if(JSON.parse(JSON.stringify(prevState.position)) !== JSON.parse(JSON.stringify(this.state.position))){
+			const location = await locationService.getReverseGeocoding(this.state.position.lat, this.state.position.lng)
+			console.log('location: ', location);
+		}
+	}
+
 
 	getLocationSuccess = position => {
 		this.setState({ position: {lat: position.coords.latitude, lng: position.coords.longitude } })
@@ -21,7 +29,7 @@ class HomePage extends Component {
 
 	render() {
 		const { position } = this.state;
-		if(position){
+		if(position.lat && position.lng){
 			return (
 				<div>
 					This is your location {position.lat}, {position.lng}
