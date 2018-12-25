@@ -12,8 +12,8 @@ script:
 deploy:
   provider: pages
   skip-cleanup: true
-  github-token:  ${process.env.REACT_APP_GITHUB_API}
+  github-token: process.env.REACT_APP_GITHUB_API
   keep-history: true
   local_dir: build
   on:
-    branch: attempt-2
+    branch: master
