@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - "stable"
+script:
+  - npm install
+  - npm run build
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token:  ${process.env.REACT_APP_GITHUB_API}
+  keep-history: true
+  on:
+    branch: master
