@@ -1,6 +1,10 @@
+os:
+  - osx
 language: node_js
+
 node_js:
   - "stable"
+
 script:
   - npm install
   - npm run build
@@ -10,5 +14,6 @@ deploy:
   skip-cleanup: true
   github-token:  ${process.env.REACT_APP_GITHUB_API}
   keep-history: true
+  local_dir: build
   on:
     branch: master
