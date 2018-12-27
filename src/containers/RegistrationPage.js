@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
+import get from 'lodash.get';
 import locationActions from '../actions/locationActions'
-import locationService from '../services/locationService';
-import CustomSelect from '../components/CustomSelect';
+import RegistrationForm from '../components/RegistrationForm';
 
 const mapStateToProps = state => {
 	return {
@@ -11,147 +11,63 @@ const mapStateToProps = state => {
 		cities: state.location.cities,
 		districts: state.location.districts,
 		subDistricts: state.location.subDistricts,
+
+		selectedProvince: formValueSelector('RegistrationForm')(state, 'province'),
+		selectedCity: formValueSelector('RegistrationForm')(state, 'city'),
+		selectedDistrict: formValueSelector('RegistrationForm')(state, 'district'),
+		selectedSubDistric: formValueSelector('RegistrationForm')(state, 'subdistrict'),
 	}
 };
 
-const mapDispatchToProps = dispatch => {
-	return{
-		getProvinces: locationActions.getProvinces,
-		getCities: locationActions.getCities,
-		getDistricts: locationActions.getDistricts,
-		getSubDistricts: locationActions.getSubDistricts
-	}
+const mapDispatchToProps =  {
+	getProvinces: locationActions.getProvinces,
+	getCities: locationActions.getCities,
+	getDistricts: locationActions.getDistricts,
+	getSubDistricts: locationActions.getSubDistricts
 };
 
 class FormPage extends Component {
-	state ={
-		selectedProvince: { label: '', value: 0 },
-
-		cities: [],
-		selectedCity: { label: '', value: 0 },
-
-		districts: [],
-		selectedDistrict: { label: '', value: 0 },
-
-		subDistricts: [],
-		selectedSubDistrics: { label: '', value: 0 },
-	};
-
 	componentDidMount() {
-		//Get the province and set it to state
 		this.props.getProvinces()
 	}
 
-	async componentDidUpdate(prevProps, prevState) {
-		//If the user change the province, get the cities and reset the selected city, districts and subdistricts
-		if(prevState.selectedProvince.value !== this.state.selectedProvince.value){
-			const cities =  await this.getCities(this.state.selectedProvince.value);
-			this.setState({
-				cities,
-				selectedCity: { label: '', value: 0 },
-				selectedDistrict: { label: '', value: 0 },
-				selectedSubDistrics: { label: '', value: 0 }
-			});
+	async componentDidUpdate(prevProps) {
+		if(get(prevProps, 'selectedProvince.value') !== get(this.props, 'selectedProvince.value')){
+			this.props.getCities(this.props.selectedProvince.value);
 		}
 
-		if(prevState.selectedCity.value !== this.state.selectedCity.value){
-			//If the user change the city, get the districts and reset the selected districts and subdistricts
-			const districts =  await  this.getDistricts(this.state.selectedCity.value);
-			this.setState({
-				districts,
-				selectedDistrict: { label: '', value: 0 },
-				selectedSubDistrics: { label: '', value: 0 }
-			});
+		if(get(prevProps, 'selectedCity.value') !== get(this.props, 'selectedCity.value')){
+			this.props.getDistricts(this.props.selectedCity.value);
 		}
 
-		if(prevState.selectedDistrict.value !== this.state.selectedDistrict.value){
-			//If the user change the district, get the cities and reset the selected subdistricts
-			const subDistricts =  await this.getSubDistricts(this.state.selectedDistrict.value);
-			this.setState({
-				subDistricts,
-				selectedSubDistrics: { label: '', value: 0 }
-			});
+		if(get(prevProps, 'selectedDistrict.value') !== get(this.props, 'selectedDistrict.value')){
+			this.props.getSubDistricts(this.props.selectedDistrict.value)
 		}
 	}
 
-	getCities = (id) => {
-		return locationService.getCities(id).then(data =>
-			data.data.cities.map(city => ({
-				label: city.name,
-				value: city.id
-			}))
-		);
-	};
-
-	getDistricts = (id) => {
-		return locationService.getDistricts(id).then(data =>
-			data.data.districts.map(district => ({
-				label: district.name,
-				value: district.id
-			}))
-		);
-	};
-
-	getSubDistricts = (id) => {
-		return locationService.getSubDistricts(id).then(data =>
-			data.data.subdistricts.map(subdistrict => ({
-				label: subdistrict.name,
-				value: subdistrict.id
-			}))
-		);
-	};
-
-	handleChange = selected => value => {
-		this.setState({ [selected]: value })
-	};
-
-
 	render() {
 		const {
-			provinces
-		} = this.props;
-		const {
+			provinces,
 			cities,
 			districts,
 			subDistricts,
 			selectedProvince,
 			selectedCity,
 			selectedDistrict,
-			selectedSubDistrics
-		} = this.state;
+			selectedSubDistric
+		} = this.props;
 		return (
 			<div>
-				<CustomSelect
-					label={"Province"}
-					value={selectedProvince}
-					options={provinces}
-					handleChange={this.handleChange('selectedProvince')}
-					isLoading={provinces.length === 0}
-					isDisabled={false}
-				/>
-				<CustomSelect
-					label={"Cities"}
-					value={selectedCity}
-					options={cities}
-					handleChange={this.handleChange('selectedCity')}
-					isLoading={cities.length === 0}
-					isDisabled={!selectedProvince.value}
-				/>
-				<CustomSelect
-					label={"Districts"}
-					value={selectedDistrict}
-					options={districts}
-					handleChange={this.handleChange('selectedDistrict')}
-					isLoading={districts.length === 0}
-					isDisabled={!selectedCity.value}
-				/>
-				<CustomSelect
-					label={"SubDistricts"}
-					value={selectedSubDistrics}
-					options={subDistricts}
-					handleChange={this.handleChange('selectedSubDistrics')}
-					isLoading={subDistricts.length === 0}
-					isDisabled={!selectedDistrict.value}
+				<RegistrationForm
+					provinces={provinces}
+					cities={cities}
+					districts={districts}
+					subDistricts={subDistricts}
+					selectedProvince={selectedProvince}
+					selectedCity={selectedCity}
+					selectedDistrict={selectedDistrict}
+					selectedSubDistrics={selectedSubDistric}
+					onSubmit={() => console.log('Hi there!')}
 				/>
 			</div>
 		);
