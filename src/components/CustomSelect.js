@@ -2,7 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 
-const CustomSelect = ({ label, value, options, handleChange, isLoading, isDisabled }) => {
+const CustomSelect = React.memo(({
+	                      input: { value, onChange },
+	                      meta:{ touched, error },
+	                      label, options, isLoading, isDisabled
+}) => {
 	return (
 		<div>
 			<h3>{label}</h3>
@@ -10,16 +14,15 @@ const CustomSelect = ({ label, value, options, handleChange, isLoading, isDisabl
 				value={value}
 				isDisabled={isDisabled}
 				options={options}
-				onChange={handleChange}
+				onChange={onChange}
 				isLoading={isLoading}
 			/>
 		</div>
 	);
-};
+});
 
 CustomSelect.defaultProps = {
 	label: 'forms',
-	value: { label: '', value: 0 },
 	options: [{ label: '', value: 0 }],
 	isLoading: true,
 	isDisabled: true
@@ -30,7 +33,7 @@ CustomSelect.propTypes = {
 	value: PropTypes.shape({
 		label: PropTypes.string,
 		value: PropTypes.number
-	}).isRequired,
+	}),
 	isDisabled: PropTypes.bool.isRequired,
 	options: PropTypes.arrayOf(
 		PropTypes.shape({
@@ -38,7 +41,6 @@ CustomSelect.propTypes = {
 			value: PropTypes.number
 		}).isRequired
 	),
-	handleChange: PropTypes.func.isRequired,
 	isLoading: PropTypes.bool,
 };
 
