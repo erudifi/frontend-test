@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './store';
-import FormPage from './containers/FormPage';
+import FormPage from './containers/RegistrationPage';
 import HomePage from './containers/HomePage';
 
 const App = () => (

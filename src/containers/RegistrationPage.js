@@ -1,11 +1,30 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { formValueSelector } from 'redux-form';
+import locationActions from '../actions/locationActions'
 import locationService from '../services/locationService';
-//Lazy load CustomSelect components https://reactjs.org/blog/2018/10/23/react-v-16-6.html
-const CustomSelect = lazy(() => import('../components/CustomSelect') );
+import CustomSelect from '../components/CustomSelect';
+
+const mapStateToProps = state => {
+	return {
+		provinces: state.location.provinces,
+		cities: state.location.cities,
+		districts: state.location.districts,
+		subDistricts: state.location.subDistricts,
+	}
+};
+
+const mapDispatchToProps = dispatch => {
+	return{
+		getProvinces: locationActions.getProvinces,
+		getCities: locationActions.getCities,
+		getDistricts: locationActions.getDistricts,
+		getSubDistricts: locationActions.getSubDistricts
+	}
+};
 
 class FormPage extends Component {
 	state ={
-		provinces: [],
 		selectedProvince: { label: '', value: 0 },
 
 		cities: [],
@@ -18,10 +37,9 @@ class FormPage extends Component {
 		selectedSubDistrics: { label: '', value: 0 },
 	};
 
-	async componentDidMount() {
+	componentDidMount() {
 		//Get the province and set it to state
-		const provinces = await this.getProvinces();
-		this.setState({ provinces });
+		this.props.getProvinces()
 	}
 
 	async componentDidUpdate(prevProps, prevState) {
@@ -55,15 +73,6 @@ class FormPage extends Component {
 			});
 		}
 	}
-
-	getProvinces = () => {
-		return locationService.getProvince().then(data =>
-			data.data.provinces.map(province => ({
-				label: province.name,
-				value: province.id
-			}))
-		);
-	};
 
 	getCities = (id) => {
 		return locationService.getCities(id).then(data =>
@@ -99,7 +108,9 @@ class FormPage extends Component {
 
 	render() {
 		const {
-			provinces,
+			provinces
+		} = this.props;
+		const {
 			cities,
 			districts,
 			subDistricts,
@@ -110,43 +121,41 @@ class FormPage extends Component {
 		} = this.state;
 		return (
 			<div>
-				<Suspense fallback={<div>Loading...</div>}>
-					<CustomSelect
-						label={"Province"}
-						value={selectedProvince}
-						options={provinces}
-						handleChange={this.handleChange('selectedProvince')}
-						isLoading={provinces.length === 0}
-						isDisabled={false}
-					/>
-					<CustomSelect
-						label={"Cities"}
-						value={selectedCity}
-						options={cities}
-						handleChange={this.handleChange('selectedCity')}
-						isLoading={cities.length === 0}
-						isDisabled={!selectedProvince.value}
-					/>
-					<CustomSelect
-						label={"Districts"}
-						value={selectedDistrict}
-						options={districts}
-						handleChange={this.handleChange('selectedDistrict')}
-						isLoading={districts.length === 0}
-						isDisabled={!selectedCity.value}
-					/>
-					<CustomSelect
-						label={"SubDistricts"}
-						value={selectedSubDistrics}
-						options={subDistricts}
-						handleChange={this.handleChange('selectedSubDistrics')}
-						isLoading={subDistricts.length === 0}
-						isDisabled={!selectedDistrict.value}
-					/>
-				</Suspense>
+				<CustomSelect
+					label={"Province"}
+					value={selectedProvince}
+					options={provinces}
+					handleChange={this.handleChange('selectedProvince')}
+					isLoading={provinces.length === 0}
+					isDisabled={false}
+				/>
+				<CustomSelect
+					label={"Cities"}
+					value={selectedCity}
+					options={cities}
+					handleChange={this.handleChange('selectedCity')}
+					isLoading={cities.length === 0}
+					isDisabled={!selectedProvince.value}
+				/>
+				<CustomSelect
+					label={"Districts"}
+					value={selectedDistrict}
+					options={districts}
+					handleChange={this.handleChange('selectedDistrict')}
+					isLoading={districts.length === 0}
+					isDisabled={!selectedCity.value}
+				/>
+				<CustomSelect
+					label={"SubDistricts"}
+					value={selectedSubDistrics}
+					options={subDistricts}
+					handleChange={this.handleChange('selectedSubDistrics')}
+					isLoading={subDistricts.length === 0}
+					isDisabled={!selectedDistrict.value}
+				/>
 			</div>
 		);
 	}
 }
 
-export default FormPage;
+export default connect(mapStateToProps, mapDispatchToProps)(FormPage);
