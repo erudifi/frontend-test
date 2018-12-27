@@ -30,3 +30,5 @@ package-lock.json
 
 # Api Token
 .env
+.env.production
+.env.development
