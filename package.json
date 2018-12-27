@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "gh-pages": "^2.0.1",
+    "lodash.get": "^4.4.2",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
@@ -16,6 +17,7 @@
     "react-select": "^2.1.2",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.7",
+    "redux-form": "^8.1.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0"
   },
