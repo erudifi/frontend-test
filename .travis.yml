@@ -1,5 +1,8 @@
+if: branch = master
+
 os:
   - osx
+
 language: node_js
 
 node_js:
