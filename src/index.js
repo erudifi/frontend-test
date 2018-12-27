@@ -4,6 +4,8 @@ import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter as Router } from 'react-router-dom';
 
+console.log(process.env);
+
 ReactDOM.render(
 	<Router basename={process.env.PUBLIC_URL}>
 		<App />
