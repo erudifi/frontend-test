@@ -1,0 +1,22 @@
+if: branch = master
+
+os:
+  - osx
+
+language: node_js
+
+node_js:
+  - "stable"
+
+script:
+  - npm install
+  - npm run build
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $githubToken
+  keep-history: true
+  local_dir: build
+  on:
+    branch: master

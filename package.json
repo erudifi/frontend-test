@@ -1,0 +1,45 @@
+{
+  "name": "dana-cita-front-end-test",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "http://nold2.github.io/frontend-test",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "gh-pages": "^2.0.1",
+    "lodash.get": "^4.4.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-redux": "^6.0.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1",
+    "react-select": "^2.1.2",
+    "redux": "^4.0.1",
+    "redux-devtools-extension": "^2.13.7",
+    "redux-form": "^8.1.0",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "source-map-explorer": "^1.6.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "analyze": "source-map-explorer",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -b master -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

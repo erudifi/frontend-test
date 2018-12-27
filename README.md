@@ -1,10 +1,11 @@
 # Frontend Test (React Performance)
 
+[![Build Status](https://travis-ci.com/nold2/frontend-test.svg?branch=master)](https://travis-ci.com/nold2/frontend-test)
+
+
 ## Introduction
 
-This is a simple exercise for us to gauge your React/Frontend engineering proficiency. You will be implementing a region picker (see image below) with performance in mind.
-
-![Frontend Test](https://media.giphy.com/media/2UH793kyekHUb3YUmZ/giphy.gif)
+This is Simple App, build to Assess my skills for Dana Cita. Below Describes the problem, deliverables and resources
 
 ## Problem
 
