@@ -31,7 +31,7 @@ class FormPage extends Component {
 		this.props.getProvinces()
 	}
 
-	async componentDidUpdate(prevProps) {
+	componentDidUpdate(prevProps) {
 		if(get(prevProps, 'selectedProvince.value') !== get(this.props, 'selectedProvince.value')){
 			this.props.getCities(this.props.selectedProvince.value);
 		}
@@ -43,6 +43,15 @@ class FormPage extends Component {
 		if(get(prevProps, 'selectedDistrict.value') !== get(this.props, 'selectedDistrict.value')){
 			this.props.getSubDistricts(this.props.selectedDistrict.value)
 		}
+	}
+
+	handleSubmit = values => {
+		console.log({
+			selectedProvince: values.province.label,
+			selectedCity: values.city.label,
+			selectedDistrict: values.district.label,
+			selectedSubDistric: values.subdistrict.label
+		})
 	}
 
 	render() {
@@ -67,7 +76,7 @@ class FormPage extends Component {
 					selectedCity={selectedCity}
 					selectedDistrict={selectedDistrict}
 					selectedSubDistrics={selectedSubDistric}
-					onSubmit={() => console.log('Hi there!')}
+					onSubmit={this.handleSubmit}
 				/>
 			</div>
 		);
