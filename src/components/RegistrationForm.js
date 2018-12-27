@@ -2,6 +2,7 @@ import React from 'react';
 import { reduxForm, Field } from 'redux-form';
 import PropTypes from 'prop-types';
 import CustomSelect from '../components/CustomSelect';
+import { requiredInput } from "../helpers/validation";
 
 
 const RegistrationForm = ({ handleSubmit, provinces, cities, districts, subDistricts, selectedProvince, selectedCity, selectedDistrict }) => {
@@ -10,35 +11,38 @@ const RegistrationForm = ({ handleSubmit, provinces, cities, districts, subDistr
 			<Field
 				name="province"
 				component={CustomSelect}
-				label={"Province"}
+				label={"Province*"}
 				options={provinces}
 				isLoading={provinces.length === 0}
 				isDisabled={false}
+				validate={requiredInput}
 			/>
 			<Field
 				name="city"
 				component={CustomSelect}
-				label={"Cities"}
+				label={"Cities*"}
 				options={cities}
 				isLoading={cities.length === 0}
 				isDisabled={!selectedProvince.value}
-
+				validate={requiredInput}
 			/>
 			<Field
 				name="district"
 				component={CustomSelect}
-				label={"District"}
+				label={"District*"}
 				options={districts}
 				isLoading={districts.length === 0}
 				isDisabled={!selectedCity.value}
+				validate={requiredInput}
 			/>
 			<Field
 				name="subdistrict"
 				component={CustomSelect}
-				label={"Sub-District"}
+				label={"Sub-District*"}
 				options={subDistricts}
 				isLoading={subDistricts.length === 0}
 				isDisabled={!selectedDistrict.value}
+				validate={requiredInput}
 			/>
 			<button
 				type="submit"

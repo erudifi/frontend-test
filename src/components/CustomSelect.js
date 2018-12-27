@@ -17,6 +17,7 @@ const CustomSelect = React.memo(({
 				onChange={onChange}
 				isLoading={isLoading}
 			/>
+			{touched && !!error && <p style={{ color: 'red', fontSize: '12px' }}>{error}</p>}
 		</div>
 	);
 });
